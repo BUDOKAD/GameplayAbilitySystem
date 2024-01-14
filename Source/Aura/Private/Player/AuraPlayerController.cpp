@@ -1,7 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Druid Mechanics
 
 
 #include "Player/AuraPlayerController.h"
+
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 
@@ -13,18 +14,14 @@ AAuraPlayerController::AAuraPlayerController()
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-    check(AuraContext)
-
+	check(AuraContext);
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	check(Subsystem);
 	Subsystem->AddMappingContext(AuraContext, 0);
 
-
-	
-	//Cursor Settings
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
-	
+
 	FInputModeGameAndUI InputModeData;
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	InputModeData.SetHideCursorDuringCapture(false);
@@ -35,27 +32,23 @@ void AAuraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	UEnhancedInputComponent*EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-	
-	EnhancedInputComponent ->BindAction(MoveAction, ETriggerEvent::Triggered,this, &AAuraPlayerController::Move);
-	
+	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
-	
+	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
 }
-// Movment Function
+
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
-	const FVector2d InputActionVector = InputActionValue.Get<FVector2d>();
+	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
 	const FRotator Rotation = GetControlRotation();
-	const FRotator YawRotation(0.f, Rotation.Yaw,0.f);
+	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
-
-	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxes(EAxis::X);
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxes(EAxis::Y);
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 	if (APawn* ControlledPawn = GetPawn<APawn>())
 	{
-		 ControlledPawn->AddMovementInput(ForwardDirection,InputActionVector.Y);
-		ControlledPawn->AddMovementInput(RightDirection,InputActionVector.X);
+		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
+		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
 	}
 }
