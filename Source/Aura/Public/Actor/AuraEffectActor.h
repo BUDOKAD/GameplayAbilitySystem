@@ -52,28 +52,33 @@ protected:
 
 
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	bool bDestroyOnEffectRemoval = false;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	EEffectApplicationPolicy InstantEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	TSubclassOf<UGameplayEffect> DurationGamePlayEffectClass;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	EEffectApplicationPolicy DurationEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	TSubclassOf<UGameplayEffect> InfiniteGamePlayEffectClass;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	EEffectApplicationPolicy InfiniteEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Applied Effects");
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
 	EEffectRemovalPolicy InfiniteEffectRemovalPolicy = EEffectRemovalPolicy::RemoveOnEndOverlap;
 
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
+
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects");
+	float ActorLevel = 1.f;
+	
 	
 	
 };

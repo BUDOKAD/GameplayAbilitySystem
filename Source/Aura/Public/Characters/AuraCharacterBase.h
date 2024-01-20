@@ -18,7 +18,7 @@ class AURA_API AAuraCharacterBase : public ACharacter,public IAbilitySystemInter
 public:
 	AAuraCharacterBase();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UAttributeSet* getattributeSet() const {return AttributeSet;}
+	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
 protected:
 	virtual void BeginPlay() override;
 	
@@ -30,4 +30,6 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
-}; 
+
+	virtual void InitAbilityActorInfo();
+};
