@@ -4,6 +4,7 @@
 #include "AbilitySystemInterface.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Windows/AllowWindowsPlatformTypes.h"
 #include "AuraCharacterBase.generated.h"
 
 
@@ -35,7 +36,13 @@ protected:
 	virtual void InitAbilityActorInfo();
 
 	UPROPERTY(BlueprintReadOnly,EditAnywhere,Category="Attributes") 
-	TSubclassOf<UGameplayEffect>defaultPrimaryAttributes;
+	TSubclassOf<UGameplayEffect>DefaultPrimaryAttributes;
 
-	void InitializePrimaryAttributes() const;
+	UPROPERTY(BlueprintReadOnly,EditAnywhere,Category="Attributes") 
+	TSubclassOf<UGameplayEffect>DefaultSecondaryAttributes;
+
+
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>GameplayEffectClass, float Level)const;
+
+	void InitializeDefaultAttributes();
 };

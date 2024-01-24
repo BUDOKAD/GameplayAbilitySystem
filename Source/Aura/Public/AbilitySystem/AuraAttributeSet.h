@@ -87,8 +87,41 @@ public:
 	FGameplayAttributeData Luck;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Luck);
 
+	/**
+	 * Secondary Attributes
+	 */
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Attack, Category = "Secondary Attributes")
+	FGameplayAttributeData Attack;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Attack);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MAttack, Category = "Secondary Attributes")
+	FGameplayAttributeData MAttack ;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MAttack);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Defence, Category = "Secondary Attributes")
+	FGameplayAttributeData Defence;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Defence);
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MDefence, Category = "Secondary Attributes")
+	FGameplayAttributeData MDefence;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MDefence);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Flee, Category = "Secondary Attributes")
+	FGameplayAttributeData Flee;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Flee);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Crit, Category = "Secondary Attributes")
+	FGameplayAttributeData Crit;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Crit);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_HPRegen, Category = "Secondary Attributes")
+	FGameplayAttributeData HPRegen;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, HPRegen);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MPRegen, Category = "Secondary Attributes")
+	FGameplayAttributeData MPRegen;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MPRegen);
 	
 	/**
 	 * Vital Attributes
@@ -112,6 +145,7 @@ public:
 	 * Primary Attributes
 	 */
 	
+	
 	UFUNCTION()
 	void OnRep_Strength(const FGameplayAttributeData& OldStrength) const;
 	UFUNCTION()
@@ -124,12 +158,28 @@ public:
 	void OnRep_Vitality(const FGameplayAttributeData& OldVitality) const;
 	UFUNCTION()
 	void OnRep_Luck(const FGameplayAttributeData& OldLuck) const;
+
+	/*
+	 * Secondary Attributes
+	 */
 	
-
-
-
-
-
+	
+	UFUNCTION()
+	void OnRep_Attack(const FGameplayAttributeData& OldAttack) const;
+	UFUNCTION()
+	void OnRep_MAttack(const FGameplayAttributeData& OldMAttack) const;
+	UFUNCTION()
+	void OnRep_Defence(const FGameplayAttributeData& OldDefence) const;
+	UFUNCTION()
+	void OnRep_MDefence(const FGameplayAttributeData& OldMDefence) const;
+	UFUNCTION()
+	void OnRep_Flee(const FGameplayAttributeData& OldFlee) const;
+	UFUNCTION()
+	void OnRep_Crit(const FGameplayAttributeData& OldCrit) const;
+	UFUNCTION()
+	void OnRep_HPRegen(const FGameplayAttributeData& OldHPRegen) const;
+	UFUNCTION()
+	void OnRep_MPRegen(const FGameplayAttributeData& OldMPRegen) const;
 	
 	/*
 	 *Vital Attribute 

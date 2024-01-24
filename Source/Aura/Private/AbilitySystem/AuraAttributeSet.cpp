@@ -10,22 +10,30 @@
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
-	InitHealth(50.f);
-	InitMaxHealth(100.f);
+	InitHealth(20.f);
+	InitMaxHealth(20.f);
 	InitMana(10.f);
-	InitMaxMana(50.f);
+	InitMaxMana(10.f);
 }
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Strength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Attack, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Dexterity, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Agility, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Vitality, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Luck, COND_None, REPNOTIFY_Always);
 
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Attack, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, MAttack, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Defence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, MDefence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Flee, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Crit, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, HPRegen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, MPRegen, COND_None, REPNOTIFY_Always);
 
 	
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Health, COND_None, REPNOTIFY_Always);
@@ -124,6 +132,46 @@ void UAuraAttributeSet::OnRep_Vitality(const FGameplayAttributeData& OldVitality
 void UAuraAttributeSet::OnRep_Luck(const FGameplayAttributeData& OldLuck) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Luck, OldLuck);
+}
+
+void UAuraAttributeSet::OnRep_Attack(const FGameplayAttributeData& OldAttack) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Attack, OldAttack);
+}
+
+void UAuraAttributeSet::OnRep_MAttack(const FGameplayAttributeData& OldMAttack) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MAttack, OldMAttack);
+}
+
+void UAuraAttributeSet::OnRep_Defence(const FGameplayAttributeData& OldDefence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Defence, OldDefence);
+}
+
+void UAuraAttributeSet::OnRep_MDefence(const FGameplayAttributeData& OldMDefence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MDefence, OldMDefence);
+}
+
+void UAuraAttributeSet::OnRep_Flee(const FGameplayAttributeData& OldFlee) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Flee, OldFlee);
+}
+
+void UAuraAttributeSet::OnRep_Crit(const FGameplayAttributeData& OldCrit) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Crit, OldCrit);
+}
+
+void UAuraAttributeSet::OnRep_HPRegen(const FGameplayAttributeData& OldHPRegen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, HPRegen, OldHPRegen);
+}
+
+void UAuraAttributeSet::OnRep_MPRegen(const FGameplayAttributeData& OldMPRegen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MPRegen, OldMPRegen);
 }
 
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
