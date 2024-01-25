@@ -42,6 +42,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly,EditAnywhere,Category="Attributes") 
 	TSubclassOf<UGameplayEffect>DefaultSecondaryAttributes;
 
+	UPROPERTY(BlueprintReadOnly,EditAnywhere,Category="Attributes") 
+	TSubclassOf<UGameplayEffect>HealthInitialization;
 
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>GameplayEffectClass, float Level)const;
 
