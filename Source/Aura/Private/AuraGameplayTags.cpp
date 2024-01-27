@@ -8,5 +8,5 @@ FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
-	UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributs.Secondary.Attack"),FString("Increase hit damage"));
+	GameplayTags.Attributes_Secondary_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributs.Secondary.Attack"),FString("Increase hit damage"));
 }

@@ -10,11 +10,13 @@
 struct FAuraGameplayTags
 {
 public:
- static const FAuraGameplayTags get(){return GameplayTags;}
- static void  InitializeNativeGameplayTags();
+	static const FAuraGameplayTags get(){return GameplayTags;}
+	static void  InitializeNativeGameplayTags();
 
+
+ FGameplayTag Attributes_Secondary_Attack;
 protected:
 
 private:
- static FAuraGameplayTags GameplayTags;
+	static FAuraGameplayTags GameplayTags;
 };
