@@ -7,10 +7,35 @@
 #include "GameFramework/Character.h"
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
-
+#include "AuraGameplayTags.h"
 UAuraAttributeSet::UAuraAttributeSet()
 {
+	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::get();
+	
+//Primary Stats
+	
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, GetStrengthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence,GetIntelligenceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Agility, GetAgilityAttribute);
+	
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Vitality, GetAgilityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Dexterity, GetDexterityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Luck, GetStrengthAttribute);
 
+	//Secondary Stats
+	
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Attack, GetAttackAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MAttack, GetMAttackAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Defence, GetDefenceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MDefence, GetMDefenceAttribute);
+
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Crit, GetMDefenceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Flee, GetFleeAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MaxHealth, GetManaAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MaxMana, GetManaAttribute);
+
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_HPRegen, GetHPRegenAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MPRegen, GetMPRegenAttribute);
 }
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
