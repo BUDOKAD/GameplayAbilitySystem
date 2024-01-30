@@ -10,7 +10,7 @@
 struct FAuraGameplayTags
 {
 public:
-	static const FAuraGameplayTags get(){return GameplayTags;}
+	static const FAuraGameplayTags Get(){return GameplayTags;}
 	static void  InitializeNativeGameplayTags();
 
 

@@ -10,7 +10,7 @@
 #include "AuraGameplayTags.h"
 UAuraAttributeSet::UAuraAttributeSet()
 {
-	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::get();
+	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
 	
 //Primary Stats
 	
