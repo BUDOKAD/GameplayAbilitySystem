@@ -40,6 +40,7 @@ private:
 	void CursorTrace();
 	IEnemyInterface* LastActor=nullptr;
 	IEnemyInterface* ThisActor=nullptr;
+	FHitResult CursorHit;
 
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
@@ -64,5 +65,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent>Spline;
+
+	void AutoRun();
 	
 };

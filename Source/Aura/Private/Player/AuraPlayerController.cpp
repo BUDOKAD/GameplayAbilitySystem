@@ -25,65 +25,43 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 	CursorTrace();
-	
+	AutoRun();
 }
+
+
+void AAuraPlayerController::AutoRun()
+{
+	if (!bAutoRunning) return;
+	if (APawn* controlledPawn= GetPawn())
+	{
+		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(controlledPawn->GetActorLocation(),ESplineCoordinateSpace::World);
+		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
+		controlledPawn->AddMovementInput(Direction);
+
+		const float DistanceToDestination = (LocationOnSpline - CachedDestination).Length();
+		if (DistanceToDestination<=AutoRunAcceptanceRadius)
+		{
+			bAutoRunning= false;
+		}
+		
+	}
+}
+
 void AAuraPlayerController::CursorTrace()
 {
-	FHitResult CursorHit;
+	
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;
 
 	LastActor = ThisActor;
 	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
-	 
-	 /**
-	  * Line trace from cursor. there are several scenarios:
-	  * A. LastActor is null && ThisAcor is null
-	  *		- Do nothing.
-	  *	B. LastActor is null && ThisActor is valid
-	  *		-Highlight ThisActor
-	  * C. LastActor is valid && ThisActor is null
-	  *		-UnHighLight lastActor
-	  *	D. Both actors are valid but LastActor != ThisActor
-	  *		-UnHighLight LastActor, and HighLight ThisActor
-	  *	E. Both actors are valid, and are the same actor
-	  *		do nothing
-	  */
-	 if(LastActor == nullptr)
-	 {
-		 if (ThisActor != nullptr)
-		 {
-			 // Case B
-		 	ThisActor->HighlightActor();
-		 }
-		 else
-		 {
-			 // Both are null, A scenario. Do Nothing
-		 }
-	 	
-	 }
-	 else // Last Actor is Valid
-	 {
-		 if (ThisActor == nullptr)
-		 {
-			 // C scenario
-		 	LastActor->UnHighlightActor();
-		 }
-		 else
-		 {
-			 //Both are valid
-			 if (LastActor!=ThisActor)
-			 {
-				// D scenario
-			 	LastActor->UnHighlightActor();
-			 	ThisActor->HighlightActor();
-			 }
-			 else
-			 {
-				 // E scenario. Do nothing.
-			 }
-		 }
-	 }
+
+	if (LastActor !=ThisActor)
+	{
+		if (LastActor) LastActor->HighlightActor();
+		if (ThisActor) ThisActor->HighlightActor();
+	}
+	
 }
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
@@ -99,22 +77,17 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
+		
 		return;
 	}
 	if (bTargeting)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
 	}
 	else
 	{
-		APawn* ControlledPawn=GetPawn(); 
+		const APawn* ControlledPawn=GetPawn(); 
 		if (FollowTime <=ShortPressThreshold && ControlledPawn)
 		{
 			if (UNavigationPath*  NavPath =UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
@@ -123,8 +96,8 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 				for (const FVector& PointLoc : NavPath->PathPoints)
 				{
 					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-					DrawDebugSphere(GetWorld(),PointLoc, 8.f, 8, FColor::Green,false, 5.f);
 				}
+				CachedDestination = NavPath->PathPoints.Last();
 				bAutoRunning = true;
 			}
 			
@@ -145,18 +118,15 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	}
 	if (bTargeting)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagHeld(InputTag);
 	}
 	else
 	{
 		FollowTime =+GetWorld()->GetDeltaSeconds();
-	FHitResult Hit;
-		if (GetHitResultUnderCursor(ECC_Visibility, false,Hit))
+	
+		if (CursorHit.bBlockingHit)
 		{
-			CachedDestination = Hit.ImpactPoint;
+			CachedDestination = CursorHit.ImpactPoint;
 		}
 		if (APawn* ControlledPawn = GetPawn())
 		{
@@ -174,6 +144,8 @@ UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 	}
 	return AuraAbilitySystemComponent;
 }
+
+
 
 void AAuraPlayerController::BeginPlay()
 {
