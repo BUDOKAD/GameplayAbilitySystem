@@ -1,0 +1,7 @@
+Begin Object Class=/Script/Engine.CurveTable Name="CT_PrimaryAttributesElementalist" ExportPath="/Script/Engine.CurveTable'/Game/Blueprints/AbilitySystem/GameplayEffects/InitializeAttributes/Enemy/CurveTables/CT_PrimaryAttributesElementalist.CT_PrimaryAttributesElementalist'"
+   Begin Object Class=/Script/Engine.AssetImportData Name="AssetImportData" ExportPath="/Script/Engine.AssetImportData'/Game/Blueprints/AbilitySystem/GameplayEffects/InitializeAttributes/Enemy/CurveTables/CT_PrimaryAttributesElementalist.CT_PrimaryAttributesElementalist:AssetImportData'"
+   End Object
+   Begin Object Name="AssetImportData" ExportPath="/Script/Engine.AssetImportData'/Game/Blueprints/AbilitySystem/GameplayEffects/InitializeAttributes/Enemy/CurveTables/CT_PrimaryAttributesElementalist.CT_PrimaryAttributesElementalist:AssetImportData'"
+   End Object
+   AssetImportData="/Script/Engine.AssetImportData'AssetImportData'"
+End Object
