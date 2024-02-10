@@ -107,5 +107,14 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	FName("InputTag.5"),
 	FString("5 numeric button")
 	);
-	
+
+
+	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Damage"),
+	FString("Damage Recived")
+	);
+	GameplayTags.Healing = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Healing"),
+	FString("Healing Recived")
+	);
 }
