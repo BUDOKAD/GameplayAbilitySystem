@@ -117,4 +117,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	FName("Healing"),
 	FString("Healing Recived")
 	);
+	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Effects.HitReact"),
+	FString("HitReact")
+	);
 }
